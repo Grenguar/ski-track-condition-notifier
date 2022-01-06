@@ -2,3 +2,4 @@ code
 node_modules
 .idea
 *.js
+.DS_Store

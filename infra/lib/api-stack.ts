@@ -1,16 +1,17 @@
 import {
   aws_apigateway as apigw,
-  aws_lambda as lambda,
   aws_dynamodb as ddb,
   StackProps,
   Stack,
   aws_sns as sns,
   aws_ssm as ssm,
+  Duration,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import {RetentionDays} from "aws-cdk-lib/aws-logs";
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
-
+import * as path from 'path';
+import { aws_lambda_nodejs } from 'aws-cdk-lib';
 export class ApiStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -23,15 +24,21 @@ export class ApiStack extends Stack {
       topicName: 'ski-topic',
     });
 
-    const getSkiTrackState = new lambda.Function(this, 'GetSkiTrackHandler', {
-      runtime: lambda.Runtime.NODEJS_14_X,
-      code: lambda.Code.fromAsset('../code'),
-      handler: 'get-ski-track-state.handler',
+    // const getSkiTrackState = new lambda.Function(this, 'GetSkiTrackHandler', {
+    //   runtime: lambda.Runtime.NODEJS_14_X,
+    //   code: lambda.Code.fromAsset('../code'),
+    //   handler: 'get-ski-track-state.handler',
+    //   logRetention: RetentionDays.ONE_WEEK,
+    //   environment: {
+    //     topicName: snsTopic.topicName,
+    //     region: 'eu-west-1' 
+    //   }
+    // });
+
+    const getSkiTrackState = new aws_lambda_nodejs.NodejsFunction(this, 'MyFunction', {
+      entry: path.join(__dirname, '../../src/functions/get-ski-track-state.ts'),
+      timeout: Duration.seconds(25),
       logRetention: RetentionDays.ONE_WEEK,
-      environment: {
-        topicName: snsTopic.topicName,
-        region: 'eu-west-1' 
-      }
     });
 
     snsTopic.grantPublish(getSkiTrackState);

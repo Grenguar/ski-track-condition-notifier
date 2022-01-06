@@ -20,7 +20,6 @@
     "webpack-glob-entry": "^2.1.1"
   },
   "scripts": {
-    "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
