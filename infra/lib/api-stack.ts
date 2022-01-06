@@ -26,7 +26,7 @@ export class ApiStack extends Stack {
     const getSkiTrackState = new lambda.Function(this, 'GetSkiTrackHandler', {
       runtime: lambda.Runtime.NODEJS_14_X,
       code: lambda.Code.fromAsset('../code'),
-      handler: 'create.handler',
+      handler: 'get-ski-track-state.handler',
       logRetention: RetentionDays.ONE_WEEK,
       environment: {
         topicName: snsTopic.topicName,
