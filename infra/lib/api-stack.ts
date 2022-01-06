@@ -40,7 +40,10 @@ export class ApiStack extends Stack {
       timeout: Duration.seconds(25),
       logRetention: RetentionDays.ONE_WEEK,
       depsLockFilePath: path.join(__dirname, '../../package-lock.json'),
-      projectRoot: path.join(__dirname, '../..')
+      projectRoot: path.join(__dirname, '../..'),
+      bundling: {
+        nodeModules: ['@aws-sdk/client-sns', 'axios'],
+      }
     });
 
     snsTopic.grantPublish(getSkiTrackState);
