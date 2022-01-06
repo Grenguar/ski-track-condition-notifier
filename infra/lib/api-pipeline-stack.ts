@@ -24,7 +24,7 @@ export class ApiPipelineStack extends Stack {
         ];
 
         const pipeline = new CodePipeline(this, 'Pipeline', {
-            pipelineName: 'ServerlessAPI-Pipeline',
+            pipelineName: 'SkiNotifier-Pipeline',
             synth: new ShellStep('Build', {
                 input: CodePipelineSource.connection('Grenguar/ski-track-condition-notifier', 'main', {
                     connectionArn,
