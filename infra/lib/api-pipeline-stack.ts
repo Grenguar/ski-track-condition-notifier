@@ -7,10 +7,12 @@ import { CodePipeline, CodePipelineSource, ShellStep } from "aws-cdk-lib/pipelin
 import { MyPipelineAppStage } from "./api-stack-stage";
 
 export class ApiPipelineStack extends Stack {
-    constructor(scope: Construct, id: string, props?: StackProps) {
+    constructor(scope: Construct, id: string, props: StackProps) {
         super(scope, id, props);
 
         const connectionArn = ssm.StringParameter.valueForStringParameter(this, '/serverless-api/git/connection-arn', 1);
+        const email = ssm.StringParameter.valueForStringParameter(this, '/billing/email', 1);
+
         const buildCommands = [
             'npm ci',
             'npm run build',
@@ -27,11 +29,14 @@ export class ApiPipelineStack extends Stack {
                 input: CodePipelineSource.connection('Grenguar/ski-track-condition-notifier', 'main', {
                     connectionArn,
                 }),
-                commands: buildCommands
+                commands: buildCommands,
+                env: {
+                    email
+                }
             }),
             selfMutation: true,
         });
 
-        pipeline.addStage(new MyPipelineAppStage(this, "Deploy"));
+        // pipeline.addStage(new MyPipelineAppStage(this, "Deploy"));
     }
 }
