@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as AWS from "@aws-sdk/client-sns";
+import { SkiTracksData } from "../models/ski-track-data";
 
 const client = new AWS.SNS({ region: 'eu-west-1' });
 
@@ -13,6 +14,3 @@ export async function handler () {
     };
 }
 
-export interface SkiTracksData {
-    count: number;
-}

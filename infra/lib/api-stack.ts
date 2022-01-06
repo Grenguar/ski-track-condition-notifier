@@ -39,6 +39,8 @@ export class ApiStack extends Stack {
       entry: path.join(__dirname, '../../src/functions/get-ski-track-state.ts'),
       timeout: Duration.seconds(25),
       logRetention: RetentionDays.ONE_WEEK,
+      depsLockFilePath: path.join(__dirname, '../../package-lock.json'),
+      projectRoot: path.join(__dirname, '../..')
     });
 
     snsTopic.grantPublish(getSkiTrackState);
