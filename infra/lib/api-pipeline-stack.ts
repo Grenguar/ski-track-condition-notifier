@@ -14,8 +14,6 @@ export class ApiPipelineStack extends Stack {
         const email = ssm.StringParameter.valueForStringParameter(this, '/billing/email', 1);
 
         const buildCommands = [
-            'npm ci',
-            'npm run build',
             'cd infra',
             'npm ci',
             'npm run build',
