@@ -43,6 +43,9 @@ export class ApiStack extends Stack {
       projectRoot: path.join(__dirname, '../..'),
       bundling: {
         nodeModules: ['@aws-sdk/client-sns', 'axios'],
+      },
+      environment: {
+        topicArn: snsTopic.topicArn,
       }
     });
 
