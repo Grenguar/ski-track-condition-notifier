@@ -33,6 +33,6 @@ export class ApiPipelineStack extends Stack {
             selfMutation: true,
         });
 
-        pipeline.addStage(new MyPipelineAppStage(this, "Deploy"));
+        // pipeline.addStage(new MyPipelineAppStage(this, "Deploy"));
     }
 }

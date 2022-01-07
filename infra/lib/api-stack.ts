@@ -39,9 +39,6 @@ export class ApiStack extends Stack {
       entry: path.join(__dirname, '../../src/functions/get-ski-track-state.ts'),
       timeout: Duration.seconds(30),
       logRetention: RetentionDays.ONE_WEEK,
-      // bundling: {
-      //   nodeModules: ['@aws-sdk/client-sns', 'axios'],
-      // },
       environment: {
         topicArn: snsTopic.topicArn,
       }
