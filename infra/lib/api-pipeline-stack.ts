@@ -14,7 +14,6 @@ export class ApiPipelineStack extends Stack {
         const email = ssm.StringParameter.valueForStringParameter(this, '/billing/email', 1);
 
         const buildCommands = [
-            'cd infra',
             'npm i',
             'npm run build',
             'npx cdk synth',
@@ -34,6 +33,6 @@ export class ApiPipelineStack extends Stack {
             selfMutation: true,
         });
 
-        // pipeline.addStage(new MyPipelineAppStage(this, "Deploy"));
+        pipeline.addStage(new MyPipelineAppStage(this, "Deploy"));
     }
 }
