@@ -1,16 +1,10 @@
 import axios from "axios";
 import * as AWS from "@aws-sdk/client-sns";
-<<<<<<< HEAD
-import { SkiTracksData } from "../models/ski-track-data";
-import { PublishCommand, PublishInput } from "@aws-sdk/client-sns";
-=======
 import { DataResult, SkiTracksData } from "../models/ski-track-data";
 import { PublishCommand, PublishCommandInput } from "@aws-sdk/client-sns";
 import { FinishedTracks } from "../models/finished-tracks";
->>>>>>> d804248 (changed the sns topic sending)
 
 export async function handler () {
-<<<<<<< HEAD
     const url = 'https://api.hel.fi/servicemap/v2/unit/?service=191&only=id,name,location,street_address,services,municipality&include=observations&geometry=false&page_size=1000&municipality=espoo'
     const resp = await axios.get(url);
     const data = resp.data as SkiTracksData;
@@ -18,16 +12,18 @@ export async function handler () {
     const params: PublishInput = {
         TopicArn: process.env.topicArn,
         Message: tracksCount,
-=======
+    };
     const region = (process.env.region as string) || 'eu-west-1';
+    const topicArn = process.env.topicArn as string
     const client = new AWS.SNS({ region });
     const skiData = await getSkiTrackData();
     const tracksCount = `There are ${skiData.count} in Espoo`;
     console.log(JSON.stringify(skiData));
     const params: PublishCommandInput = {
-        TopicArn: process.env.topicArn,
+        TopicArn: topicArn,
         Message: JSON.stringify(tracksCount),
->>>>>>> d804248 (changed the sns topic sending)
+
+        Subject: 'Ski maintenance completed!'
     };
     const publishCommand = new PublishCommand(params);
     const snsData = await client.send(publishCommand);
@@ -37,8 +33,6 @@ export async function handler () {
     };
 }
 
-<<<<<<< HEAD
-=======
 async function getSkiTrackData() {
     const url = 'https://api.hel.fi/servicemap/v2/unit/?service=191&only=id,name,location,street_address,services,municipality&include=observations&geometry=false&page_size=1000&municipality=espoo'
     const resp = await axios.get(url);
@@ -73,4 +67,3 @@ function getLatestMaintenanceData(data: SkiTracksData) {
             })
     };  
 }
->>>>>>> b192bb4 (reorganized the repo)
