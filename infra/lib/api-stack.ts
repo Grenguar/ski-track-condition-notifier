@@ -37,13 +37,11 @@ export class ApiStack extends Stack {
 
     const getSkiTrackState = new aws_lambda_nodejs.NodejsFunction(this, 'MyFunction', {
       entry: path.join(__dirname, '../../src/functions/get-ski-track-state.ts'),
-      timeout: Duration.seconds(25),
+      timeout: Duration.seconds(30),
       logRetention: RetentionDays.ONE_WEEK,
-      depsLockFilePath: path.join(__dirname, '../../package-lock.json'),
-      projectRoot: path.join(__dirname, '../..'),
-      bundling: {
-        nodeModules: ['@aws-sdk/client-sns', 'axios'],
-      },
+      // bundling: {
+      //   nodeModules: ['@aws-sdk/client-sns', 'axios'],
+      // },
       environment: {
         topicArn: snsTopic.topicArn,
       }

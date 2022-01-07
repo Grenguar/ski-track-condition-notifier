@@ -38,3 +38,8 @@ export interface Name {
     sv: string;
     en?: string
 }
+
+export interface Location {
+    type: string;
+    coordinates: number[]
+}
