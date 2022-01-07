@@ -41,6 +41,7 @@ export class ApiStack extends Stack {
       logRetention: RetentionDays.ONE_WEEK,
       environment: {
         topicArn: snsTopic.topicArn,
+        region: props?.env?.region as string
       }
     });
 
