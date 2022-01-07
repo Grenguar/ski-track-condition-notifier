@@ -15,7 +15,7 @@ export class ApiPipelineStack extends Stack {
 
         const buildCommands = [
             'cd infra',
-            'npm ci',
+            'npm i',
             'npm run build',
             'npx cdk synth',
         ];
