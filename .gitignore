@@ -12,3 +12,5 @@ node_modules
 .cdk.staging
 cdk.out
 .vscode
+package-lock.json
+coverage

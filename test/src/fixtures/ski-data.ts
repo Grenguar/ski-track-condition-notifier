@@ -1,0 +1,167 @@
+export const skiData = {
+  count: 3,
+  next: null,
+  previous: null,
+  results: [
+    {
+      id: 67908,
+      name: {
+        fi: 'Puolarmaari (1,4km/p+v/osittain valaistu)',
+        sv: 'Bolomaren (1,4km/k+f/delvis belyst)',
+      },
+      street_address: {
+        fi: 'Puolarmaari 12',
+        sv: 'Puolarmaari 12',
+        en: 'Puolarmaari 12',
+      },
+      municipality: 'espoo',
+      services: [191],
+      location: {
+        type: 'Point',
+        coordinates: [24.70181, 60.17805],
+      },
+      observations: [
+        {
+          unit: 67908,
+          id: 545916,
+          property: 'ski_trail_condition',
+          time: '2022-01-08T07:36:29.876845+0200',
+          expiration_time: null,
+          name: {
+            fi: 'Hyvä',
+            sv: 'Bra',
+            en: 'Good condition',
+          },
+          quality: 'good',
+          value: 'good',
+          primary: true,
+        },
+        {
+          unit: 67908,
+          id: 545915,
+          property: 'ski_trail_maintenance',
+          time: '2022-01-08T07:36:29.876845+0200',
+          expiration_time: null,
+          name: {
+            fi: 'Kunnostettu',
+            sv: 'Iståndsatt',
+            en: 'Maintenance finished',
+          },
+          quality: 'unknown',
+          value: 'maintenance_finished',
+          primary: false,
+        },
+      ],
+    },
+    {
+      id: 63790,
+      name: {
+        fi: 'Pirttimäki-Luukki (6km/p/ei valaistusta)',
+        sv: 'Pirttibacka-Luk (6km/k/inte belyst)',
+      },
+      street_address: {
+        fi: 'Kunnarlantie 110',
+        sv: 'Gunnarsvägen 110',
+        en: 'Kunnarlantie 110',
+      },
+      municipality: 'espoo',
+      services: [191],
+      location: {
+        type: 'Point',
+        coordinates: [24.661783, 60.29504],
+      },
+      observations: [
+        {
+          unit: 63790,
+          id: 416493,
+          property: 'ski_trail_condition',
+          time: '2021-10-26T09:12:48.830359+0300',
+          expiration_time: null,
+          name: {
+            fi: 'Suljettu',
+            sv: 'Stängd',
+            en: 'Closed',
+          },
+          quality: 'unusable',
+          value: 'closed',
+          primary: true,
+        },
+        {
+          unit: 63790,
+          id: 69707,
+          property: 'ski_trail_maintenance',
+          time: '2021-02-05T13:04:10.380378+0200',
+          expiration_time: null,
+          name: {
+            fi: 'Kunnostettu',
+            sv: 'Iståndsatt',
+            en: 'Maintenance finished',
+          },
+          quality: 'unknown',
+          value: 'maintenance_finished',
+          primary: false,
+        },
+      ],
+    },
+    {
+      id: 54322,
+      name: {
+        fi: 'Oittaan kuntorata (2,8km/p+v/valaistu)',
+        sv: 'Oitans motionsspår (2,8km/k+f/belyst)',
+      },
+      street_address: {
+        fi: 'Kunnarlantie 33-39',
+        sv: 'Gunnarsvägen 33-39',
+        en: 'Kunnarlantie 33-39',
+      },
+      municipality: 'espoo',
+      services: [191],
+      location: {
+        type: 'Point',
+        coordinates: [24.67177, 60.240376],
+      },
+      observations: [
+        {
+          unit: 54322,
+          id: 545294,
+          property: 'ski_trail_condition',
+          time: '2022-01-07T23:18:48.129560+0200',
+          expiration_time: null,
+          name: {
+            fi: 'Hyvä',
+            sv: 'Bra',
+            en: 'Good condition',
+          },
+          quality: 'good',
+          value: 'good',
+          primary: true,
+        },
+        {
+          unit: 54322,
+          id: 545293,
+          property: 'ski_trail_maintenance',
+          time: '2022-01-07T23:18:48.129560+0200',
+          expiration_time: null,
+          name: {
+            fi: 'Kunnostettu',
+            sv: 'Iståndsatt',
+            en: 'Maintenance finished',
+          },
+          quality: 'unknown',
+          value: 'maintenance_finished',
+          primary: false,
+        },
+        {
+          unit: 54322,
+          id: 518642,
+          property: 'notice',
+          time: '2021-12-25T08:47:05.046718+0200',
+          expiration_time: null,
+          value: {
+            fi: 'Yhden kierroksen pituus on n 5,1km kun hiihtää navetan ja niityn lenkit kuntoradan lisäksi',
+          },
+        },
+      ],
+    },
+  ],
+};
