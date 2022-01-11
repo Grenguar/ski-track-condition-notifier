@@ -31,7 +31,7 @@ export function isFinished(result: DataResult): boolean {
 /**
  * Get the
  * @param dateStr coming from the ski data (example: 2022-01-08T07:36:29.876845+0200)
- * @param timeout in minutes
+ * @param timeInterval in minutes
  */
 export function isRecentObservation(dateStr: string, timeInterval: number) {
   const parsedDate = DateTime.fromISO(dateStr, {
