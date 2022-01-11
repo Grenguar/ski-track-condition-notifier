@@ -26,16 +26,9 @@ export async function handler() {
         promises.push(client.send(publishCommand));
       });
     await Promise.all(promises);
-    return {
-      statusCode: 200,
-      body: JSON.stringify(`Notifications sent ${promises.length} time(s)`),
-    };
+    console.log(`Notifications sent ${promises.length} time(s)`);
   }
-
-  return {
-    statusCode: 200,
-    body: JSON.stringify('tracks checked'),
-  };
+  console.log('There are no recently tracks');
 }
 
 async function getSkiTrackData() {
