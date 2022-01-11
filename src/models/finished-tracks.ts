@@ -1,5 +1,5 @@
 export interface FinishedTracks {
-  tracks: TrackMaintenance;
+  tracks: TrackMaintenance[];
 }
 
 export interface TrackMaintenance {

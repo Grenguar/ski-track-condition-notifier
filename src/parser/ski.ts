@@ -1,16 +1,17 @@
 import { DataResult, SkiTracksData } from '../models/ski-track-data';
 import { DateTime } from 'luxon';
+import { FinishedTracks, TrackMaintenance } from '../models/finished-tracks';
 
-export function getFinishedTracks(data: SkiTracksData) {
+export function getFinishedTracks(data: SkiTracksData): FinishedTracks {
   return {
     tracks:
       data.results.filter(isFinished).map((result: DataResult) => {
         const name = result.name.fi;
-        const address = result.street_address;
-        const time = result.observations[0].time.toString();
+        const address = result.street_address.fi;
+        const date = result.observations[0].time.toString();
         return {
           finished: true,
-          time,
+          date,
           name,
           address,
           state: 'good',
@@ -27,8 +28,16 @@ export function isFinished(result: DataResult): boolean {
   return false;
 }
 
-// export function isRecentObservation(dateStr: string, timeout: number) {
-//   //2022-01-08T07:36:29.876845+0200
-//   const parsedDate = DateTime.fromFormat(dateStr, 'yyyy-MM-ddTHH:mm:ss.SSSuuuZZZ');
-//   console.log(parsedDate);
-// }
+/**
+ * Get the
+ * @param dateStr coming from the ski data (example: 2022-01-08T07:36:29.876845+0200)
+ * @param timeout in minutes
+ */
+export function isRecentObservation(dateStr: string, timeInterval: number) {
+  const parsedDate = DateTime.fromISO(dateStr, {
+    zone: 'utc+2',
+  });
+  const currentDate = DateTime.now().toUTC(120);
+  const timeDifference = currentDate.diff(parsedDate, 'minute').as('minutes');
+  return timeDifference <= timeInterval;
+}

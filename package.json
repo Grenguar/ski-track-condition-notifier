@@ -2,7 +2,11 @@
   "name": "ski-track-notifier",
   "version": "1.0.0",
   "description": "This is the notifier of the status of ski tracks in Finland",
-  "main": "index.js",
+  "bin": {
+    "infra": "infra/bin/ski-track-notifier-infra.js",
+    "test": "jest --config ./jest.config.js",
+    "test:watch": "npm run test -- --watch"
+  },
   "dependencies": {
     "@aws-sdk/client-sns": "^3.45.0",
     "aws-cdk": "2.3.0",

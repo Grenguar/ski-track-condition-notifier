@@ -1,5 +1,6 @@
 import { skiData } from '../fixtures/ski-data';
-import { getFinishedTracks, isFinished } from '../../../src/parser/ski';
+import { getFinishedTracks, isFinished, isRecentObservation } from '../../../src/parser/ski';
+import { DateTime, Settings } from 'luxon';
 
 jest.mock('axios', () => jest.fn(() => Promise.resolve(skiData)));
 
@@ -16,23 +17,23 @@ describe('Test ski parser', () => {
     expect(finished).toBeFalsy();
   });
 
-  it('should return 2 tracks iin GOOD state', () => {
+  it('should return 2 tracks in GOOD state', () => {
     const allFinishedTracks = getFinishedTracks(skiData as any);
 
     expect(allFinishedTracks.tracks).toHaveLength(2);
   });
 
-  it('should return 2 tracks iin GOOD state', () => {
-    const allFinishedTracks = getFinishedTracks(skiData as any);
-
-    expect(allFinishedTracks.tracks).toHaveLength(2);
+  it('isRecent: should be false', () => {
+    const isRecent = isRecentObservation(skiData.results[0].observations[0].time, 30);
+    expect(isRecent).toBeFalsy();
   });
 
-  // it('should return the recent one', () => {
-  //   // const allFinishedTracks = getFinishedTracks(skiData as any);
-  //   //
-  //   // expect(allFinishedTracks.tracks).toHaveLength(2);
-  //   const isRecent = isRecentObservation(skiData.results[0].observations[0].time as any, 30);
-  //   console.log(isRecent);
-  // });
+  it('isRecent: should return true', () => {
+    const expectedNow = DateTime.local(2022, 1, 1, 1, 30, 0);
+    Settings.now = () => expectedNow.toMillis();
+
+    const testDate = '2022-01-01T01:25:00.000000+0200';
+    const isRecent = isRecentObservation(testDate, 30);
+    expect(isRecent).toBeTruthy();
+  });
 });

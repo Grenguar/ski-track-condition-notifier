@@ -1,17 +1,11 @@
-import {
-  aws_apigateway as apigw,
-  aws_dynamodb as ddb,
-  StackProps,
-  Stack,
-  aws_sns as sns,
-  aws_ssm as ssm,
-  Duration,
-} from 'aws-cdk-lib';
+import { StackProps, Stack, aws_sns as sns, Duration, aws_lambda_nodejs } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import {RetentionDays} from "aws-cdk-lib/aws-logs";
+import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 import { EmailSubscription } from 'aws-cdk-lib/aws-sns-subscriptions';
 import * as path from 'path';
-import { aws_lambda_nodejs } from 'aws-cdk-lib';
+import { Rule, Schedule } from 'aws-cdk-lib/aws-events';
+import { addLambdaPermission, LambdaFunction } from 'aws-cdk-lib/aws-events-targets';
+
 export class ApiStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -24,31 +18,31 @@ export class ApiStack extends Stack {
       topicName: 'ski-topic',
     });
 
-    // const getSkiTrackState = new lambda.Function(this, 'GetSkiTrackHandler', {
-    //   runtime: lambda.Runtime.NODEJS_14_X,
-    //   code: lambda.Code.fromAsset('../code'),
-    //   handler: 'get-ski-track-state.handler',
-    //   logRetention: RetentionDays.ONE_WEEK,
-    //   environment: {
-    //     topicName: snsTopic.topicName,
-    //     region: 'eu-west-1' 
-    //   }
-    // });
+    const eventRule = new Rule(this, 'LambdaTrigger', {
+      schedule: Schedule.rate(Duration.minutes(30)),
+    });
 
-    const getSkiTrackState = new aws_lambda_nodejs.NodejsFunction(this, 'MyFunction', {
+    const getSkiTrackStateHandler = new aws_lambda_nodejs.NodejsFunction(this, 'MyFunction', {
       entry: path.join(__dirname, '../../src/functions/get-ski-track-state.ts'),
       timeout: Duration.seconds(30),
       logRetention: RetentionDays.ONE_WEEK,
       environment: {
         topicArn: snsTopic.topicArn,
-        region: props?.env?.region as string
-      }
+        region: props?.env?.region as string,
+        timeInterval: '30',
+      },
     });
 
-    snsTopic.grantPublish(getSkiTrackState);
+    eventRule.addTarget(new LambdaFunction(getSkiTrackStateHandler));
 
-    snsTopic.addSubscription(new EmailSubscription(process.env.email as string, {
-      json: true
-    }));
+    addLambdaPermission(eventRule, getSkiTrackStateHandler);
+
+    snsTopic.grantPublish(getSkiTrackStateHandler);
+
+    snsTopic.addSubscription(
+      new EmailSubscription(process.env.email as string, {
+        json: false,
+      })
+    );
   }
 }
