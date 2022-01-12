@@ -36,7 +36,7 @@ export function isFinished(result: DataResult): boolean {
 export function isRecentObservation(dateStr: string, timeInterval: number) {
   const parsedDate = DateTime.fromISO(dateStr, {
     zone: 'utc+2',
-  });
+  });              
   const currentDate = DateTime.now().toUTC(120);
   const timeDifference = currentDate.diff(parsedDate, 'minute').as('minutes');
   console.log('current date', currentDate.toString());
