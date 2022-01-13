@@ -29,7 +29,7 @@ export class ApiStack extends Stack {
       environment: {
         topicArn: snsTopic.topicArn,
         region: props?.env?.region as string,
-        timeInterval: '20',
+        timeInterval: '60',
       },
     });
 
