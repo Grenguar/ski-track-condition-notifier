@@ -29,7 +29,7 @@ export async function handler() {
     await Promise.all(promises);
     console.log(`Notifications sent ${promises.length} time(s)`);
     if (promises.length === 0) {
-      console.log('There are no recent maintained tracks');
+      console.log('There are no recently maintained tracks');
     }
   }
 }
