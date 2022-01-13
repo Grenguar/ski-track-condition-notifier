@@ -39,8 +39,5 @@ export function isRecentObservation(dateStr: string, timeInterval: number) {
   });              
   const currentDate = DateTime.now().toUTC(120);
   const timeDifference = currentDate.diff(parsedDate, 'minute').as('minutes');
-  console.log('current date', currentDate.toString());
-  console.log('parsed date', parsedDate.toString());
-  console.log('Difference in minutes', timeDifference);
   return timeDifference <= timeInterval;
 }

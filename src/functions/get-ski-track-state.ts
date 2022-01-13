@@ -17,6 +17,7 @@ export async function handler() {
     finishedTracks.tracks
       .filter((track) => isRecentObservation(track.date, timeInterval))
       .forEach((track) => {
+        console.log('Maintained track:', JSON.stringify(track))
         const params: PublishCommandInput = {
           TopicArn: topicArn,
           Message: `Track "${track.name}" was completed on ${track.date}. Address: ${track.address}`,
@@ -27,8 +28,10 @@ export async function handler() {
       });
     await Promise.all(promises);
     console.log(`Notifications sent ${promises.length} time(s)`);
+    if (promises.length === 0) {
+      console.log('There are no recent maintained tracks');
+    }
   }
-  console.log('There are no recently tracks');
 }
 
 async function getSkiTrackData() {
