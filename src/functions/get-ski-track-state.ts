@@ -17,7 +17,7 @@ export async function handler() {
     finishedTracks.tracks
       .filter((track) => isRecentObservation(track.date, timeInterval))
       .forEach((track) => {
-        console.log('Maintained track:', JSON.stringify(track))
+        console.log('Maintained track: ', JSON.stringify(track))
         const params: PublishCommandInput = {
           TopicArn: topicArn,
           Message: `Track "${track.name}" was completed on ${track.date}. Address: ${track.address}`,
