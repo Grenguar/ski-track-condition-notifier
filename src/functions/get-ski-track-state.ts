@@ -2,6 +2,7 @@ import * as AWS from '@aws-sdk/client-sns';
 import { PublishCommand, PublishCommandInput } from '@aws-sdk/client-sns';
 import { getFinishedTracks, isRecentObservation } from '../parser/ski';
 import { getSkiTrackData } from '../services/ski-service';
+import { toReadableDate } from '../helpers/utils';
 
 export async function handler() {
   const timeInterval = parseInt(process.env.timeInterval as string, 10);
@@ -22,7 +23,7 @@ export async function handler() {
           TopicArn: topicArn,
           Message: `
 Track: ${track.name} 
-Completed on: ${track.date} 
+Completed on: ${toReadableDate(track.date)} 
 Address: ${track.address}
           `,
           Subject: `Ski Track "${track.name}" completed!`,
@@ -34,5 +35,4 @@ Address: ${track.address}
     console.log(`Notifications sent ${promises.length} time(s)`);
   }
 }
-
 
