@@ -1,6 +1,7 @@
 import { skiData } from '../fixtures/ski-data';
 import { getFinishedTracks, isFinished, isRecentObservation } from '../../../src/parser/ski';
 import { DateTime, Settings } from 'luxon';
+import { toReadableDate } from '../../../src/helpers/utils';
 
 jest.mock('axios', () => jest.fn(() => Promise.resolve(skiData)));
 
@@ -21,10 +22,5 @@ describe('Test ski parser', () => {
     const allFinishedTracks = getFinishedTracks(skiData as any);
 
     expect(allFinishedTracks.tracks).toHaveLength(2);
-  });
-
-  it('isRecent: should be false', () => {
-    const isRecent = isRecentObservation(skiData.results[0].observations[0].time, 30);
-    expect(isRecent).toBeFalsy();
   });
 });

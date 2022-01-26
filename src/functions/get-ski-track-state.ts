@@ -22,7 +22,7 @@ export async function handler() {
           TopicArn: topicArn,
           Message: `
 Track: ${track.name} 
-Date completed: ${track.date} 
+Completed on: ${track.date} 
 Address: ${track.address}
           `,
           Subject: `Ski Track "${track.name}" completed!`,
