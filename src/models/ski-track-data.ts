@@ -1,18 +1,4 @@
 export interface SkiTracksData {
-<<<<<<< HEAD
-    count: number;
-    results: Result[];
-}
-
-export interface Result {
-    id: number;
-    name: Name;
-    street_address: StreetAddress;
-    municipality: string;
-    services: number[];
-    location: Location;
-    observations: Observation[];
-=======
   count: number;
   results: DataResult[];
 }
@@ -25,7 +11,6 @@ export interface DataResult {
   services: number[];
   location: Location;
   observations: Observation[];
->>>>>>> 0fe58bc (adding tests)
 }
 
 export interface StreetAddress {
